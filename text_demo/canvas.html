@@ -1,0 +1,100 @@
+<html>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var num = 0;
+        function poll() {
+            //$.get('http://donorly.ml/demos/text_demo/readsms.php?index=' + num, function(data) {
+            $.get('readsms.php?index=' + num, function(data) {
+                var list = document.getElementById("box");
+                data = JSON.parse(data);
+                console.log(data);
+                console.log(data.length);
+
+                for (var i = 0; i < data.length; ++i) {
+                    var d = data[i];
+                    num = d.id;
+
+console.log(d.body);
+			move(d.body);
+                }
+                    
+            });
+        }
+        $(document.body).ready(setInterval(poll, 1000));
+    </script>
+
+<canvas id="canvas"></canvas>
+
+
+<script>
+function move(str) {
+	var direction = str.toLowerCase();
+console.log(direction);
+	switch (direction) {
+		case 'right':
+			targetX += 15;
+			break;
+		case 'left':
+			targetX -= 15;
+			break;
+		case 'down':
+			targetY += 15;
+			break;
+		case 'up':
+			targetX -= 15;
+			break;
+		default:
+			console.log("BAD TEXT GOT THROUGH");
+	}
+}
+</script>
+
+<script>
+var canvas=document.getElementById("canvas"),
+    ctx = canvas.getContext("2d");
+
+canvas.width = canvas.height = 500;
+
+var targetX = 50,
+    targetY = 50,
+    x = 100,
+    y = 100,
+    velX = 0,
+    velY = 0,
+    speed = 2;
+
+function update(){
+	var tx = targetX - x,
+	    ty = targetY - y,
+	    dist = Math.sqrt(tx*tx+ty*ty),
+	    rad = Math.atan2(ty,tx),
+	    angle = rad/Math.PI * 180;
+
+	velX = (tx/dist)*speed,
+	     velY = (ty/dist)*speed;
+
+	x += velX
+		y += velY
+
+		ctx.clearRect(0,0,500,500);
+	ctx.beginPath();
+	ctx.arc(x,y,6,0,Math.PI*2);
+	ctx.fill();
+
+	setTimeout(update,10);
+}
+
+update();
+
+
+/*
+   canvas.addEventListener("mousemove", function(e){
+   targetX = e.pageX;
+   targetY = e.pageY;
+   });
+ */
+</script>
+
+
+</html>
