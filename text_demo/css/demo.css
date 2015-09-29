@@ -1,0 +1,35 @@
+.phone_number {
+	font-size: 2em;
+    text-align: center;
+    padding: 1em;
+    font-family: 'Open Sans';
+    color: #2c3e50;
+}
+
+.ui {
+    height: 600px;
+}
+
+#box {
+    border-top: 1px solid #bdc3c7;
+    margin: 0 auto;
+    max-width: 800px;
+    height: 600px;
+}
+
+.message {
+    border-bottom: 1px solid #bdc3c7;
+    padding: 15px;
+}
+
+.number {
+    padding: 15px 0 0px 0;
+    font-family: 'Open Sans';
+    color: #7f8c8d;
+}
+
+.msgbody {
+    padding: 15px 0 0 15px;
+    font-family: 'Open Sans';
+    font-size: 1.1em;
+}

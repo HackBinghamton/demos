@@ -1,0 +1,55 @@
+<html lang="en">
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/demo.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="number">
+        <h1 class="phone_number">Text us!</h1>
+    </div>
+
+    <div class="ui">
+        <div id="box">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var num = 0;
+        function poll() {
+            $.get('readsms.php?index=' + num, function(data) {
+                var list = document.getElementById("box");
+                data = JSON.parse(data);
+
+                for (var i = 0; i < data.length; ++i) {
+                    var d = data[i];
+                    num = d.id;
+
+                    var msg = document.createElement("div");
+                    msg.className += 'message';
+
+                    var from = document.createElement("span");
+                    from.className += 'number';
+                    from.innerHTML = d.message.replace("+","");
+
+                    var messagebody = document.createElement("span");
+                    messagebody.className += 'msgbody';
+                    messagebody.innerHTML = d.body;
+
+                    //msg.appendChild(from);
+                    msg.appendChild(messagebody);
+                    list.appendChild(msg);
+                    list.insertBefore(msg, list.firstChild);
+                }
+                    
+            });
+        }
+
+
+        $(document.body).ready(setInterval(poll, 1000));
+    </script>
+</body>
+</html>
